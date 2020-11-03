@@ -11,26 +11,10 @@ import Combine
 
 class PhotosObject :  ObservableObject {
     // MARK: -Used to hold all of the searched photos
-    @Published var results = [Result]() {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    
-    @Published var currentPage = 1 {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    
-    @Published var searchText = "" {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    
-    var objectWillChange = PassthroughSubject<Void, Never>()
-    
+    @Published var results = [Result]()
+    @Published var currentPage = 1
+    @Published var searchText = ""
+
     // MARK: -Calls when scrolling down
     func loadNextPage() {
         self.currentPage += 1
