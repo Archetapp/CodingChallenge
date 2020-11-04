@@ -119,13 +119,14 @@ struct SearchingView : View, ButtonProtocol{
                         VStack {
                             if self.selectedResult.id != "" {
                                 RemoteImage(url: URL(string: currentResultImage)!, placeholder: {Color.gray.opacity(0.5)}, image:{Image(uiImage: $0).resizable()})
+                                    
                                     .aspectRatio(contentMode: .fill)
                                     .frame(height: reader.size.width * CGFloat(currentResultHeight / currentResultWidth), alignment: .center)
                                     .cornerRadius(20)
                                     .clipped()
                                     .shadow(radius: 5.0).padding(20).zIndex(1)
                                     .onAppear() {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                             show = true
                                         }
                                     }.onDisappear() {
@@ -133,20 +134,19 @@ struct SearchingView : View, ButtonProtocol{
                                         photos.results[currentIndex].index =  -1.0
                                     }
                             }
-                            if show {
                                 VStack {
                                     InfoView(postData: self.selectedResult)
                                 }.offset(y: show ? 0 : -100)
                                 .opacity(show ? 1 : 0)
                                 .zIndex(0)
                                 .animation(.spring())
-                            }
+                            
                             
                         }.padding()
                     }
                     .animation(nil)
-                    .matchedGeometryEffect(id: selectedResult.id, in: namespace, properties: .frame, isSource: isSelected)
-                            .animation(.spring(response: 0.4, dampingFraction: 0.8))
+                    
+                    .animation(.spring(response: 0.4, dampingFraction: 0.8))
                 
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.8))
@@ -161,6 +161,7 @@ struct SearchingView : View, ButtonProtocol{
                         .animation(nil)
                         .zIndex(1)
             }.padding()
+            .matchedGeometryEffect(id: selectedResult.id, in: namespace, properties: .frame, isSource: isSelected)
             VStack {
                 HStack {
                     Spacer()
